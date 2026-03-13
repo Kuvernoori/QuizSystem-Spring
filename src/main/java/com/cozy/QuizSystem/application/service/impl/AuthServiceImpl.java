@@ -3,6 +3,7 @@ package com.cozy.QuizSystem.application.service.impl;
 import com.cozy.QuizSystem.application.dto.AuthResponse;
 import com.cozy.QuizSystem.application.dto.LoginRequest;
 import com.cozy.QuizSystem.application.dto.RegisterRequest;
+import com.cozy.QuizSystem.application.dto.UserResponse;
 import com.cozy.QuizSystem.application.service.AuthService;
 import com.cozy.QuizSystem.domain.model.User;
 import com.cozy.QuizSystem.domain.repository.UserRepository;
@@ -64,5 +65,22 @@ public class AuthServiceImpl implements AuthService {
             String token = jwtService.generateToken(user.getPhone(), user.getRole());
             return new AuthResponse(token, user.getRole());
         }
-    }
+
+        @Override
+        public UserResponse getMe (String phone) {
+            User user = userRepository.findByPhone(phone)
+                    .orElseThrow(() -> new RuntimeException("User not found"));
+        return new UserResponse(
+                user.getId(),
+                user.getPhone(),
+                user.getFirstName(),
+                user.getLastName(),
+                user.getSecondName(),
+                user.getEmail(),
+                user.getRole(),
+                user.getCreatedAt(),
+                user.getUpdatedAt()
+        );
+        }
+}
 
