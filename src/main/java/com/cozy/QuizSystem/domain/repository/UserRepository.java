@@ -1,6 +1,8 @@
 package com.cozy.QuizSystem.domain.repository;
 
 import com.cozy.QuizSystem.domain.model.User;
+
+import java.util.List;
 import java.util.Optional;
 
 public interface UserRepository {
@@ -11,4 +13,6 @@ public interface UserRepository {
 
     Optional<User> findById(Long id);
     User update(User user);
+    List<User> findAll();
+    void deleteById(Long id);
 }

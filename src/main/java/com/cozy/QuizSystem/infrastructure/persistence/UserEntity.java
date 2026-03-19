@@ -1,10 +1,18 @@
 package com.cozy.QuizSystem.infrastructure.persistence;
 
 import jakarta.persistence.*;
+import lombok.*;
+
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "users")
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@ToString
 public class UserEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -25,6 +33,9 @@ public class UserEntity {
     @Column(nullable = true)
     private String SecondName;
 
+    @Column(nullable = true)
+    LocalDate birthDate;
+
     @Column(nullable = true, unique = true)
     private String email;
 
@@ -40,29 +51,10 @@ public class UserEntity {
     @PrePersist
     protected void onCreate() {
         createdAt = LocalDateTime.now();
-        updatedAt = createdAt;
+        updatedAt = LocalDateTime.now();
     }
-
     @PreUpdate
     protected void onUpdate() {
         updatedAt = LocalDateTime.now();
     }
-    public Long getId() { return id; }
-    public String getPhone() { return phone; }
-    public void setPhone(String phone) { this.phone = phone; }
-    public String getRole() { return Role; }
-    public void setRole(String Role) { this.Role = Role; }
-    public String getFirstName() { return firstName; }
-    public void setFirstName(String firstName) { this.firstName = firstName; }
-    public String getLastName() { return lastName; }
-    public void setLastName(String  lastName) { this.lastName = lastName; }
-    public String getSecondName() { return SecondName; }
-    public void setSecondName(String secondName) { this.SecondName = secondName; }
-    public String getEmail() {return email;}
-    public void setEmail(String email){ this.email = email; }
-    public String getPassword(){ return password; }
-    public void setPassword(String password){ this.password = password;}
-    public LocalDateTime getCreatedAt() { return createdAt; }
-    public LocalDateTime getUpdatedAt() { return updatedAt; }
-
 }

@@ -8,23 +8,17 @@ import com.cozy.QuizSystem.application.service.AuthService;
 import com.cozy.QuizSystem.domain.model.User;
 import com.cozy.QuizSystem.domain.repository.UserRepository;
 import com.cozy.QuizSystem.infrastructure.config.JwtService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
+@RequiredArgsConstructor
 public class AuthServiceImpl implements AuthService {
 
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
     private final JwtService jwtService;
-
-    public AuthServiceImpl(UserRepository userRepository,
-                           PasswordEncoder passwordEncoder,
-                           JwtService jwtService) {
-        this.userRepository = userRepository;
-        this.passwordEncoder = passwordEncoder;
-        this.jwtService = jwtService;
-    }
 
     @Override
     public AuthResponse register(RegisterRequest request) {
@@ -45,6 +39,7 @@ public class AuthServiceImpl implements AuthService {
                 request.getFirstName(),
                 request.getLastName(),
                 request.getSecondName(),
+                request.getBirthDate(),
                 request.getEmail(),
                 passwordEncoder.encode(request.getPassword()),
                 null,
@@ -73,11 +68,12 @@ public class AuthServiceImpl implements AuthService {
         return new UserResponse(
                 user.getId(),
                 user.getPhone(),
+                user.getRole(),
                 user.getFirstName(),
                 user.getLastName(),
                 user.getSecondName(),
+                user.getBirthDate(),
                 user.getEmail(),
-                user.getRole(),
                 user.getCreatedAt(),
                 user.getUpdatedAt()
         );

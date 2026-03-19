@@ -3,18 +3,15 @@ import com.cozy.QuizSystem.application.dto.*;
 import com.cozy.QuizSystem.application.service.UserService;
 import com.cozy.QuizSystem.domain.model.User;
 import com.cozy.QuizSystem.domain.repository.UserRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
+@RequiredArgsConstructor
 public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
-
-    public UserServiceImpl(UserRepository userRepository, PasswordEncoder passwordEncoder) {
-        this.userRepository = userRepository;
-        this.passwordEncoder = passwordEncoder;
-    }
 
     @Override
     public UserResponse getProfile(String phone){
@@ -38,6 +35,7 @@ public class UserServiceImpl implements UserService {
                         ? request.getLastName() : existing.getLastName(),
                 request.getSecondName() != null
                         ? request.getSecondName() : existing.getSecondName(),
+                existing.getBirthDate(),
                 request.getEmail() != null
                         ? request.getEmail() : existing.getEmail(),
                 existing.getPassword(),
@@ -64,6 +62,7 @@ public class UserServiceImpl implements UserService {
                 user.getFirstName(),
                 user.getLastName(),
                 user.getSecondName(),
+                user.getBirthDate(),
                 user.getEmail(),
                 passwordEncoder.encode(request.getNewPassword()),
                 user.getCreatedAt(),
@@ -80,6 +79,7 @@ public class UserServiceImpl implements UserService {
                 user.getFirstName(),
                 user.getLastName(),
                 user.getSecondName(),
+                user.getBirthDate(),
                 user.getEmail(),
                 user.getCreatedAt(),
                 user.getUpdatedAt()

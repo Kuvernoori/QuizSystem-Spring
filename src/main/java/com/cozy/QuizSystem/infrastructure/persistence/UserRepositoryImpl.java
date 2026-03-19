@@ -79,6 +79,7 @@ public class UserRepositoryImpl implements UserRepository {
                 entity.getFirstName(),
                 entity.getLastName(),
                 entity.getSecondName(),
+                entity.getBirthDate(),
                 entity.getEmail(),
                 entity.getPassword(),
                 entity.getCreatedAt(),
