@@ -57,6 +57,7 @@ public class UserRepositoryImpl implements UserRepository {
         if (!jpaRepository.existsById(id)) {
             throw new RuntimeException("User not found");
         }
+        jpaRepository.deleteById(id);
     }
 
     @Override
@@ -69,6 +70,8 @@ public class UserRepositoryImpl implements UserRepository {
         if (user.getSecondName() != null) entity.setSecondName(user.getSecondName());
         if (user.getEmail() != null) entity.setEmail(user.getEmail());
         if (user.getPassword() != null) entity.setPassword(user.getPassword());
+        if (user.getRole() != null) entity.setRole(user.getRole());
+        if (user.getBirthDate() != null) entity.setBirthDate(user.getBirthDate());
 
         UserEntity saved = jpaRepository.save(entity);
         return toDomain(saved);

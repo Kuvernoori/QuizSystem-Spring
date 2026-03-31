@@ -21,9 +21,9 @@ public class SwaggerConfig {
     public OpenAPI openAPI() {
         return new OpenAPI()
                 .info(new Info()
-                        .title("QuizSystem")
-                        .version("999999")
-                        .description("API SYSTEM QUIZ"))
+                        .title("Enbek School")
+                        .version("1.0")
+                        .description("Educational service of the JSC Human Resources Development Center"))
 
                 .addSecurityItem(new SecurityRequirement().addList("bearerAuth"));
     }
