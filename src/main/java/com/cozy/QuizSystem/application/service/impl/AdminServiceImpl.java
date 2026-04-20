@@ -83,7 +83,7 @@ public class AdminServiceImpl implements AdminService {
         User user = userRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("User not found"));
         String newRole = role.toUpperCase();
-        if (!newRole.equals("STUDENT") && !newRole.equals("ADMIN")) {
+        if (!newRole.equals("STUDENT") && !newRole.equals("ADMIN") && !newRole.equals("TEACHER")) {
             throw new RuntimeException("Invalid role, must be student or admin");
         }
 

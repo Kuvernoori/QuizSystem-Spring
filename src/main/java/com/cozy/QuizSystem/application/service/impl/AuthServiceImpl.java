@@ -29,7 +29,7 @@ public class AuthServiceImpl implements AuthService {
 
         User user = User.builder()
                 .phone(request.getPhone())
-                .role("STUDENT")
+                .role(request.getRole())
                 .firstName(request.getFirstName())
                 .lastName(request.getLastName())
                 .secondName(request.getSecondName())

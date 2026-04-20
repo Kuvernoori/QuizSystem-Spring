@@ -26,6 +26,8 @@ public class RegisterRequest {
 
     String secondName;
 
+    String role;
+
     LocalDate birthDate;
 
     @Email(message = "Invalid email format")
