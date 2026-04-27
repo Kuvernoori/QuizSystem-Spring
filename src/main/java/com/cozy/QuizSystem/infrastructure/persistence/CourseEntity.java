@@ -14,6 +14,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
+@Builder
 public class CourseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -30,7 +31,7 @@ public class CourseEntity {
     private CategoryEntity category;
 
     @Column(nullable = false)
-    private String teacherId;
+    private Long teacherId;
 
     @Column(nullable = true)
     private String level;

@@ -1,13 +1,15 @@
 package com.cozy.QuizSystem.application.dto;
 
+import jakarta.validation.constraints.NotBlank;
 import lombok.*;
 
 @Getter
-@AllArgsConstructor
 @NoArgsConstructor
-@Builder
-public class CategoryResponse {
-    private Long id;
+@AllArgsConstructor
+public class CategoryRequest {
+
+    @NotBlank(message = "Name is required")
     private String name;
+
     private String description;
 }

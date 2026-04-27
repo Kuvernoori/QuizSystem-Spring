@@ -1,6 +1,7 @@
 package com.cozy.QuizSystem.api.controller;
 import com.cozy.QuizSystem.application.dto.*;
 import com.cozy.QuizSystem.application.service.AdminService;
+import com.cozy.QuizSystem.application.service.CourseService;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -15,9 +16,15 @@ import java.util.List;
 @RequestMapping("/admin/users")
 @SecurityRequirement(name = "bearerAuth")
 @PreAuthorize("hasRole('ADMIN')")
-@RequiredArgsConstructor
+
 public class AdminController {
-    final AdminService adminService;
+    private final AdminService adminService;
+    private final CourseService courseService;
+
+    public AdminController(AdminService adminService, CourseService courseService) {
+        this.adminService = adminService;
+        this.courseService = courseService;
+    }
 
     @GetMapping
     public ResponseEntity<List<UserResponse>> getAllUsers() {
@@ -53,6 +60,17 @@ public class AdminController {
     public ResponseEntity<Void> deleteUser(@PathVariable Long id) {
         adminService.deleteUser(id);
         return ResponseEntity.ok().build();
+    }
+    @PostMapping("/categories")
+    public ResponseEntity<CategoryResponse> createCategory(
+            @Valid @RequestBody CategoryRequest request) {
+        return ResponseEntity.status(201).body(courseService.createCategory(request));
+    }
+
+    @DeleteMapping("/categories/{id}")
+    public ResponseEntity<Void> deleteCategory(@PathVariable Long id) {
+        courseService.deleteCategory(id);
+        return ResponseEntity.noContent().build();
     }
 
 

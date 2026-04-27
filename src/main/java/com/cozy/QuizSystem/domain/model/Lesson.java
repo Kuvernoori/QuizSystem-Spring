@@ -7,6 +7,7 @@ import java.time.LocalDateTime;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@Builder
 
 public class Lesson {
     private Long id;

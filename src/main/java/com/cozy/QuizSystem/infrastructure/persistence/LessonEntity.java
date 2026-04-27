@@ -13,40 +13,41 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
+@Builder
 
 public class LessonEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false, unique = true)
+    @Column(nullable = false)
     private String title;
 
-    @Column(nullable = false)
+    @Column(nullable = true, columnDefinition = "TEXT")
     private String content;
 
     @Column(nullable = false)
-    private String orderIndex;
+    private Integer orderIndex;
 
-    @Column(nullable = true)
-    private String lastName;
-
-    @Column(nullable = true)
-    private String SecondName;
-
-    @Column(nullable = true)
-    private LocalDate birthDate;
-
-    @Column(nullable = true, unique = true)
-    private String email;
-
-    @Column(nullable = false)
-    private String password;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "course_id", nullable = false)
+    private CourseEntity course;
 
     @Column(nullable = false, updatable = false)
     private LocalDateTime createdAt;
 
     @Column(nullable = false)
     private LocalDateTime updatedAt;
+
+    @PrePersist
+    protected void onCreate() {
+        createdAt = LocalDateTime.now();
+        updatedAt = LocalDateTime.now();
+    }
+
+    @PreUpdate
+    protected void onUpdate() {
+        updatedAt = LocalDateTime.now();
+    }
 
 }
